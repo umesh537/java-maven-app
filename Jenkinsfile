@@ -24,9 +24,9 @@ pipeline {
             steps {
                 script {
                     gv.buildImage()
+                   }
                 }
             }
-        }
         
         
         stage("deploy") {
