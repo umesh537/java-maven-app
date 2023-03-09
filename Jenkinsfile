@@ -5,7 +5,7 @@ library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
          remote: 'https://github.com/umesh537/java-maven-app.git',
          credentialsId: 'gitlab-credentials'
         ]
-
+)
 
 def gv
 
