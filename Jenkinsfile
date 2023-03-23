@@ -2,8 +2,8 @@
 
 library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
         [$class: 'GitSCMSource',
-         remote: 'https://github.com/umesh537/jenkins-shared-library.git',
-         credentialsId: 'github-credentials'
+         remote: 'https://gitlab.com/umesh537Gitlab/jenkins-shared-library.git',
+         credentialsId: 'gitlab-credentials'
         ]
 )
 
