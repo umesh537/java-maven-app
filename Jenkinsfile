@@ -1,43 +1,34 @@
 #!/usr/bin/env groovy
 
-@Library('jenkins-shared-library')
-def gv
-
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
     stages {
-        stage("init") {
+        stage('test') {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    echo "Testing the application..."
                 }
             }
         }
-        stage("build jar") {
+        stage('build') {
             steps {
                 script {
-                    buildJar()
+                    echo "Building the application..."
                 }
             }
         }
-        stage("build image") {
+        stage('deploy') {
             steps {
                 script {
-                    buildImage()
-                   }
-                }
-            }
-        
-        
-        stage("deploy") {
-            steps {
-                script {
-                    gv.deployApp()
+                    // def dockerCmd = 'docker run -p 3080:3080 -d umeshsurya01/demo-app:latest'
+                    echo 'deploying docker images to ec2'
+                    def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
+                    sshagent(['ec2-server-key']){
+                        sh "scp docker-compose.yaml ec2-user@3.109.217.233:/home/ec2-user"
+                        sh " ssh -o StrictHostKeyChecking=no ec2-user@3.109.217.233 ${dockerCmd}"
+                    }
                 }
             }
         }
-    }    
-}   
+    }
+}
