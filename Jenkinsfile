@@ -12,17 +12,10 @@ pipeline {
         IMAGE_NAME = 'umeshsurya01/demo-app:jma-3.0'
     }
     stages {
-        stage("init") {
+        stage("build app") {
             steps {
                 script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-        stage("build jar") {
-            steps {
-                script {
-                    echo "building jar"
+                    echo "building application jar"
                     buildJar()
                 }
             }
