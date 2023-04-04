@@ -8,6 +8,9 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    environment{
+        IMAGE_NAME = 'umeshsurya01/demo-app:latest'
+    }
     stages {
         stage("init") {
             steps {
