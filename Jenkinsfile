@@ -9,7 +9,7 @@ pipeline {
         maven 'Maven'
     }
     environment{
-        IMAGE_NAME = 'umeshsurya01/demo-app:java-maven-1.0'
+        IMAGE_NAME = 'umeshsurya01/demo-app:jma-3.0'
     }
     stages {
         stage("init") {
