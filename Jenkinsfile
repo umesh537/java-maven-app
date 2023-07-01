@@ -23,21 +23,23 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                    echo "building docker image"
-                    buildImage(env.IMAGE_NAME)
-                    dockerLogin()
-                    dockerPush(env.IMAGE_NAME)
+                    gv.buildimage()
+                    // echo "building docker image"
+                    // buildImage(env.IMAGE_NAME)
+                    // dockerLogin()
+                    // dockerPush(env.IMAGE_NAME)
                 }
             }
         }
         stage("deploy") {
             steps {
                 script {
-                    echo 'deploying docker images to ec2'
-                    def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
-                    sshagent(['ec2-server-key']){
-                        sh "scp docker-compose.yaml ec2-user@3.109.217.233:/home/ec2-user"
-                        sh " ssh -o StrictHostKeyChecking=no ec2-user@3.109.217.233 ${dockerComposeCmd}"
+                    gv.deployApp()
+                    // echo 'deploying docker images to ec2'
+                    // def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
+                    // sshagent(['ec2-server-key']){
+                    //     sh "scp docker-compose.yaml ec2-user@3.109.217.233:/home/ec2-user"
+                    //     sh " ssh -o StrictHostKeyChecking=no ec2-user@3.109.217.233 ${dockerComposeCmd}"
                     }
                 }
             }
