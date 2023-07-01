@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-@Library('jenkins-shared-library')
+// @Library('jenkins-shared-library')
 
 
 pipeline {
@@ -34,9 +34,9 @@ pipeline {
             steps {
                 script {
                     echo 'deploying docker images to ec2'
-                    def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
+                    def dockerComposeCmd = "docker run -p 8090:8090 -d ${IMAGE_NAME}"
                     sshagent(['ec2-server-key']){
-                        sh "scp docker-compose.yaml ec2-user@52.66.15.21:/home/ec2-user"
+                        // sh "scp docker-compose.yaml ec2-user@52.66.15.21:/home/ec2-user"
                         sh " ssh -o StrictHostKeyChecking=no ec2-user@52.66.15.21 ${dockerComposeCmd}"
                     }
                 }
